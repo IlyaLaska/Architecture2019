@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Booking</title>
+</head>
+<body>
+<div id="signup">
+    <h1>Please enter your booking details:</h1>
+    <form action="http://localhost:5050/book" method="post">
+        <!--    <form action="http://booking:4241/book" method="post">-->
+        <!-- <fieldset> -->
+        <label for="id">Id of the item to book:</label>
+        <br>
+        <input type="text" id="id" name="id" placeholder="Please enter the id of the item to book" />
+        <br>
+        <label for="amount">Amount:</label>
+        <br>
+        <input type="text" id="amount" name="amount" placeholder="Please enter the amount of the items to book"/>
+        <br>
+        <label for="rentTime">Rent time:</label>
+        <br>
+        <input type="text" id="rentTime" name="rentTime" placeholder="Please enter the length of renting"/>
+        <br>
+        <label for="name">Name:</label>
+        <br>
+        <input type="text" id="name" name="name" placeholder="Please enter your name"/>
+        <br>
+        <label for="surname">Surname:</label>
+        <br>
+        <input type="text" id="surname" name="surname" placeholder="Please enter your surname"/>
+        <br>
+        <label for="phone">Phone number:</label>
+        <br>
+        <input type="text" id="phone" name="phone" placeholder="Please enter your phone number"/>
+        <br>
+        <label for="card">Card number:</label>
+        <br>
+        <input type="text" id="card" name="card" placeholder="Please enter your card details"/>
+        <br>
+        <input type="submit" value="Proceed to Payment" />
+
+        <!-- </fieldset> -->
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Booking</title>
+</head>
+<body>
+<div id="signup">
+    <h1>Please enter which item to change and how:</h1>
+    <form action="http://localhost:5050/addItem" method="post">
+        <!--    <form action="http://booking:4241/book" method="post">-->
+        <!-- <fieldset> -->
+        <label for="ToChange">Item to change:</label>
+        <br>
+        <input type="text" id="ToChange" name="ToChange" placeholder="Please enter id of the item you want to change" />
+        <label for="Id">Id of the item:</label>
+        <br>
+        <input type="text" id="Id" name="Id" placeholder="Please enter the id of the item" />
+        <br>
+        <label for="Name">Name:</label>
+        <br>
+        <input type="text" id="Name" name="Name" placeholder="Please enter the name of the item"/>
+        <br>
+        <label for="Description">Description:</label>
+        <br>
+        <input type="text" id="Description" name="Description" placeholder="Please enter the description"/>
+        <br>
+        <label for="UnitPrice">Unit Price:</label>
+        <br>
+        <input type="text" id="UnitPrice" name="UnitPrice" placeholder="Please enter unit price"/>
+        <br>
+        <label for="AmInStock">Amount in Stock:</label>
+        <br>
+        <input type="text" id="AmInStock" name="AmInStock" placeholder="Please enter amount in stock"/>
+        <br>
+        <input type="submit" value="Proceed" />
+
+        <!-- </fieldset> -->
+    </form>
+</div>
+</body>
+</html>

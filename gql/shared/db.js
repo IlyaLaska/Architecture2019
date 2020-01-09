@@ -27,6 +27,9 @@ class db {
     // console.log(typeof callback);
     // console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
     return this.pool.query(text, (err, res) => {
+      console.log('BBBBBBBBBBBBBBBBBBBB');
+      console.log(err);
+      console.log(res);
       if (err) {
         throw err;
       }

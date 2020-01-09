@@ -4,15 +4,41 @@ let db = require('./db.js');
 let DBResponseBuilder = require('./DBResponseBuilder.js');
 
 const basePool = {
-    // host: '127.0.0.1',
-    host: 'db',
+    host: '127.0.0.1',
+    // host: 'db',
     port: '5432',
     database: 'architecture',
     user: 'postgres',
-    password: ''
+    // password: ''
+    password: 'password'
 };
 
 let base = new db(basePool);
+
+const addItem = (newItem, callback) => {
+    console.log('-------------------------------------------');
+    console.log(newItem);
+    console.log('-------------------------------------------');
+    base.query(`insert into items (Id, Name, Description, UnitPrice, AmInStock) VALUES
+(${newItem.Id}, ${newItem.Name}, ${newItem.Description}, ${newItem.UnitPrice}, ${newItem.AmInStock})`, res => {
+        console.log(res);
+        callback(res);
+    })};
+
+const changeItem = (id, newItem, callback) => {
+    base.query(`delete from items where Id = ${item.Id};insert into items (Id, Name, Description, UnitPrice, AmInStock) VALUES
+(${newItem.Id}, ${newItem.Name}, ${newItem.Description}, ${newItem.UnitPrice}, ${newItem.AmInStock})`, res => {
+        console.log(res);
+        callback(res);
+    })
+};
+
+const deleteItem = (item, callback) => {
+  base.query(`delete from items where Id = ${item.Id}`, res => {
+      console.log(res);
+      callback(res);
+  })
+};
 
 const addBooking = (details, callback) => {//callback(err, res)
     base.query(`insert into accounting
@@ -24,7 +50,10 @@ const addBooking = (details, callback) => {//callback(err, res)
         // console.log('ERRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR::');
         // console.log(insAnsErr);
         // console.log(callback.toString());
-        if(!err) {
+        console.log('~~~~~~~~~~~~~~~~~~~~~~~~');
+        console.log(err);
+        console.log(res);
+        if(err) {
             callback('', 'Inserted successfully');
         } else {
             callback('Error inserting booking data');
@@ -32,9 +61,18 @@ const addBooking = (details, callback) => {//callback(err, res)
     });
 };
 
+const fetchBookings = (callback) => {
+    base.query(`select * from accounting`, (res) => {
+        // console.log(err);
+        console.log(res);
+        return callback(res);
+    });
+};
+
 const fetchPriceById = (id, callback) => {//callback(err, res)
-    base.query(`select * from inventory where "Id" = ${id}`, (resErr, res) => {
-        // console.log(res);
+    base.query(`select * from inventory where "Id" = ${id}`, (res) => {
+        // console.log(resErr);
+        console.log(res);
         // let price =  0;
         // {
         //     Id: 1,
@@ -44,10 +82,10 @@ const fetchPriceById = (id, callback) => {//callback(err, res)
         //     UnitPrice: 2600
         // }
         // price = 1000;
-        if (res.rows.length === 0) {
+        if (res.length === 0) {
             callback('Item does not exist');
         } else {
-            callback('', res.rows[0].UnitPrice)
+            callback('', res[0].UnitPrice)
             // price = res.rows[0].UnitPrice;
         }
     });
@@ -66,6 +104,22 @@ const fetchUserByLogin = (login, password, callback) => {
             });
             // console.log(response);
             return callback(response);
+        });
+};
+
+const fetchUsers = (callback) => {
+    return base.query(`select *
+    from users`,
+        (res) => {
+        console.log(res);
+            // let response = res.filter(obj => {
+            //     console.log(obj.Password);
+            //     console.log(password);
+            //     return obj.Password === password;
+            //     console.log(obj.Password === password);
+            // });
+            // console.log(response);
+            return callback(res);
         });
 };
 
@@ -180,9 +234,14 @@ const fetchTableByValue = (callback) => {
 // fetchQueryByCategory('Tent', (result) => console.table(result));
 
 module.exports = {
+    addItem,
+    changeItem,
+    deleteItem,
     addBooking,
+    fetchBookings,
     fetchPriceById,
     fetchUserByLogin,
+    fetchUsers,
     addUser,
     fetchInventory,
     fetchQueryByCategory,

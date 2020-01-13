@@ -8,6 +8,6 @@ spec:
     app: book-pod
   ports:
   - protocol: TCP
-    port: 4240
+    port: 4241
     targetPort: book
     nodePort: 31001

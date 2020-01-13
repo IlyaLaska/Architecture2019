@@ -1,0 +1,13 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: server-service
+spec:
+  type: NodePort
+  selector:
+    app: server-pod
+  ports:
+  - protocol: TCP
+    port: 4242
+    targetPort: server
+    nodePort: 31002

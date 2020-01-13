@@ -1,0 +1,11 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: proto-service
+spec:
+  selector:
+    app: proto-pod
+  ports:
+  - protocol: TCP
+    port: 4250
+    targetPort: proto

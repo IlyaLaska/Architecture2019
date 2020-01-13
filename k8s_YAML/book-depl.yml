@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: book-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: book-pod
+  template:
+    metadata:
+      labels:
+        app: book-pod
+    spec:
+      containers:
+      - name: book-server
+        image: larilok/cms:book-latest
+        ports:
+        - name: book
+          containerPort: 4241

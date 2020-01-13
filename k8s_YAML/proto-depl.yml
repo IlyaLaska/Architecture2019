@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: proto-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: proto-pod
+  template:
+    metadata:
+      labels:
+        app: proto-pod
+    spec:
+      containers:
+      - name: proto-server
+        image: larilok/cms:proto-latest
+        ports:
+        - name: proto
+          containerPort: 4250

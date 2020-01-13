@@ -1,0 +1,13 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: book-service
+spec:
+  type: NodePort
+  selector:
+    app: book-pod
+  ports:
+  - protocol: TCP
+    port: 4240
+    targetPort: book
+    nodePort: 31001

@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: db-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: db-pod
+  template:
+    metadata:
+      labels:
+        app: db-pod
+    spec:
+      containers:
+      - name: db-server
+        image: larilok/cms:db-latest
+        command: ["/bin/sh"]
+        args: ["-c", "psql -U postgres postgres < postgres_localhost-2019_12_17_01_03_20-dump.sql"]
+        ports:
+        - name: db
+          containerPort: 5432

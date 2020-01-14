@@ -6,7 +6,7 @@ spec:
   containers:
   - name: curl
     image: appropriate/curl
-    command: ["/bin/sh"]
-    args: ["-c","curl test-service:4000 "]
-  nodeName: master
+    #command: ["/bin/sh"]
+    #args: ["-c","curl test-service:4000 "]
+    #nodeName: master
 

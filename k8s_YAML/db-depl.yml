@@ -15,8 +15,8 @@ spec:
       containers:
       - name: db-server
         image: larilok/cms:db-latest
-        command: ["/bin/sh"]
-        args: ["-c", "psql -U postgres postgres < postgres_localhost-2019_12_17_01_03_20-dump.sql"]
+        #command: ["/bin/sh"]
+        #args: ["-c", "psql -U postgres postgres < postgres_localhost-2019_12_17_01_03_20-dump.sql"]
         ports:
         - name: db
           containerPort: 5432

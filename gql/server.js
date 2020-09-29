@@ -19,7 +19,7 @@ const {graphql, buildSchema} = require('graphql');
 // Construct a schema, using GraphQL schema language
 const schema = buildSchema(`
   type Query {
-    booking: String,
+    booking: [Booking],
     products: String,
     users: String
   }
@@ -31,7 +31,18 @@ const schema = buildSchema(`
     UnitPrice: Int!
     AmInStock: Int
   }
-   input ItemInput {
+  type Booking {
+    Item: Item
+    AmRented: Int
+    RentTime: Int
+    StartTime: String
+    EndTime: String
+    RenterName: String
+    RenterSurname: String
+    RenterPhone: String
+    RenterCardDet: String
+  }
+  input ItemInput {
     Id: Int!
     Name: String
     Description: String
@@ -120,10 +131,14 @@ const root = {
         });
     },
     booking: () => {
+        console.log('//////////////////////////////////');
         return new Promise((resolve, rej) => {
+            console.log('--------------------------------------------');
             fsM.fetchBookings(res => {
+                console.log('``````````````````````````````');
                 console.log(JSON.stringify(res));
-                resolve(JSON.stringify(res));
+                resolve(res);
+                // resolve(JSON.stringify(res));
             });
         })
     },
@@ -314,7 +329,19 @@ http.createServer((req, res) => {
             } else if(data.split('=')[1] === 'deleteItem') {
                 res.writeHead(302, {'Location': 'http://localhost:5050/deleteItem.html'});
                 res.end();
+            } else if(data.split('=')[1] === 'booking') {
+                data2 = data2.slice(0, -1) + ' {Item {Id, Category, Name, Description, UnitPrice, AmInStock} AmRented, RentTime, StartTime, EndTime, RenterName, RenterSurname, RenterPhone, RenterCardDet} }';
+                console.log(data2);
+                graphql(schema, data2, root).then((response) => {
+                    console.log("GRAPHQL response");
+                    console.log(response);
+                    console.log(response.data);
+                    console.log(JSON.stringify(response.data));
+                    res.write(JSON.stringify(response.data));
+                    res.end();
+                });
             } else {
+                console.log('In else');
                 console.log(data2);
                 // if(data2 !== )
                 graphql(schema, data2, root).then((response) => {

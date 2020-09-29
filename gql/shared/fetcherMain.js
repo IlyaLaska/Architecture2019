@@ -62,12 +62,29 @@ const addBooking = (details, callback) => {//callback(err, res)
 };
 
 const fetchBookings = (callback) => {
-    base.query(`select * from accounting`, (res) => {
+    base.query(`
+select
+a."Id", c."Name" as "Category", i."Name", "Description", "Price" as "UnitPrice", "AmInStock", "AmRented", "RentTime", "StartTime", "EndTime", "RentTime", "RenterName", "RenterSurname", "RenterPhone", "RenterCardDet"
+from accounting a left join inventory i on a."InventoryId" = i."Id" left join categories c on i."CategoryId" = c."Id" left join stock s on a."InventoryId" = s."InventoryId";
+`, (res) => {
+        res = res.map(el => {
+           el.Item = {Id: el.Id, Category: el.Category, Name: el.Name, Description: el.Description, UnitPrice: el.UnitPrice, AmInStock: el.AmInStock}
+           delete el.Id;
+           delete el.Category;
+           delete el.Name;
+           delete el.Description;
+           delete el.UnitPrice;
+           delete el.AmInStock;
+           return el;
+        });
         // console.log(err);
         console.log(res);
         return callback(res);
     });
 };
+
+// a."Id", c."Name", i."Name", "Description", "Price", "AmInStock"
+//select * from accounting
 
 const fetchPriceById = (id, callback) => {//callback(err, res)
     base.query(`select * from inventory where "Id" = ${id}`, (res) => {
